@@ -9,7 +9,7 @@ namespace Xadrez_Console_App
 		{
 			Tabuleiro tab = new Tabuleiro(8, 8);
 
-			Console.WriteLine(tab);
+			Tela.ImprimirTabuleiro(tab);
 		}
 	}
 }
