@@ -7,42 +7,42 @@ namespace tabuleiro
 		public int Linhas { get; set; }
 		public int Colunas { get; set; }
 
-		private Peca[,] pecas;
+		private Peca[,] _pecas;
 
 		public Tabuleiro(int linhas, int colunas)
 		{
 			Linhas = linhas;
 			Colunas = colunas;
-			pecas = new Peca[Linhas, Colunas];
+			_pecas = new Peca[Linhas, Colunas];
 		}
 
 		public Peca TrazPeca(int linha, int coluna)
 		{
-			return pecas[linha, coluna];
+			return _pecas[linha, coluna];
 		}
 
 		public Peca TrazPeca(Posicao pos)
 		{
-			return pecas[pos.Linha, pos.Coluna];
+			return _pecas[pos.Linha, pos.Coluna];
 		}
 
 		public Peca RetiraPeca(Posicao pos)
 		{
-			if (pecas[pos.Linha, pos.Coluna] == null)
+			if (_pecas[pos.Linha, pos.Coluna] == null)
 			{
 				return null;
 			}
 
-			Peca aux = pecas[pos.Linha, pos.Coluna];
+			Peca aux = _pecas[pos.Linha, pos.Coluna];
 			aux.Posicao = null;
-			pecas[pos.Linha, pos.Coluna] = null;
+			_pecas[pos.Linha, pos.Coluna] = null;
 			return aux;
 		}
 
 		public bool ExistePeca(Posicao pos)
 		{
 			ValidarPosição(pos);
-			return pecas[pos.Linha, pos.Coluna] != null;
+			return _pecas[pos.Linha, pos.Coluna] != null;
 		}
 
 		public void ColocaPeca(Peca p, Posicao pos)
@@ -52,7 +52,7 @@ namespace tabuleiro
 				throw new TabuleiroException("Já existe uma peça nessa posição!");
 			}
 
-			pecas[pos.Linha, pos.Coluna] = p;
+			_pecas[pos.Linha, pos.Coluna] = p;
 			p.Posicao = pos;
 		}
 

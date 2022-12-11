@@ -6,14 +6,14 @@ namespace Xadrez_Console_App
 {
 	internal class Tela
 	{
-		private static char[] colunas = new char[8] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
-		private static string espacoEntrePecas = "    ";
+		private static char[] _colunas = new char[8] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
+		private static string _espacoEntrePecas = "    ";
 
 		public static void ImprimirTabuleiro(Tabuleiro tabuleiro)
 		{
 			for (int i = 0; i < tabuleiro.Linhas; i++)
 			{
-				Console.Write(8 - i + espacoEntrePecas);
+				Console.Write(8 - i + _espacoEntrePecas);
 				for (int j = 0; j < tabuleiro.Colunas; j++)
 				{ 
 					ImprimirPeça(tabuleiro.TrazPeca(i, j));
@@ -21,10 +21,10 @@ namespace Xadrez_Console_App
 				Console.WriteLine("\n");
 			}
 
-			Console.Write("\n#" + espacoEntrePecas);
+			Console.Write("\n#" + _espacoEntrePecas);
 			for (int i = 0; i < tabuleiro.Colunas; i++)
 			{
-				Console.Write(colunas[i] + espacoEntrePecas);
+				Console.Write(_colunas[i] + _espacoEntrePecas);
 			}
 			Console.WriteLine("\n\n\n");
 		}
@@ -36,7 +36,7 @@ namespace Xadrez_Console_App
 
 			for (int i = 0; i < tabuleiro.Linhas; i++)
 			{
-				Console.Write(8 - i + espacoEntrePecas);
+				Console.Write(8 - i + _espacoEntrePecas);
 				for (int j = 0; j < tabuleiro.Colunas; j++)
 				{
 					if (posicoesPossiveis[i, j])
@@ -53,10 +53,10 @@ namespace Xadrez_Console_App
 				Console.WriteLine("\n");
 			}
 
-			Console.Write("\n#" + espacoEntrePecas);
+			Console.Write("\n#" + _espacoEntrePecas);
 			for (int i = 0; i < tabuleiro.Colunas; i++)
 			{
-				Console.Write(colunas[i] + espacoEntrePecas);
+				Console.Write(_colunas[i] + _espacoEntrePecas);
 			}
 			Console.WriteLine("\n\n\n");
 			Console.BackgroundColor = fundoOriginal;
@@ -75,7 +75,7 @@ namespace Xadrez_Console_App
 
 			if (peca == null)
 			{
-				Console.Write("-" + espacoEntrePecas);
+				Console.Write("-" + _espacoEntrePecas);
 			}
 			else
 			{
@@ -91,7 +91,7 @@ namespace Xadrez_Console_App
 					Console.Write(peca);
 					Console.ForegroundColor = aux;
 				}
-				Console.Write(espacoEntrePecas);
+				Console.Write(_espacoEntrePecas);
 			}
 		}
 	}
