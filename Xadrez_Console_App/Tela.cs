@@ -17,18 +17,25 @@ namespace Xadrez_Console_App
 			ImprimirPecasCapturadas(partida);
 			Console.WriteLine("Turno: " + partida.Turno);
 			Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
+			if (partida.Xeque)
+			{
+				Console.WriteLine("XEQUE!");
+			}
 		}
 		
 		public static void ImprimirPecasCapturadas(PartidaDeXadrez partida)
 		{
 			Console.WriteLine("Peças capturadas: ");
 			Console.Write("Brancas: ");
-			ImprimirConjunto(partida.PecasCapturadas(Cor.Branca));
-			Console.Write("Pretas: ");
-			ConsoleColor aux = Console.ForegroundColor;
+			ConsoleColor aux1 = Console.ForegroundColor;
 			Console.ForegroundColor = ConsoleColor.Yellow;
+			ImprimirConjunto(partida.PecasCapturadas(Cor.Branca));
+			Console.ForegroundColor = aux1;
+			Console.Write("Pretas: ");
+			ConsoleColor aux2 = Console.ForegroundColor;
+			Console.ForegroundColor = ConsoleColor.DarkYellow;
 			ImprimirConjunto(partida.PecasCapturadas(Cor.Preta));
-			Console.ForegroundColor = aux;
+			Console.ForegroundColor = aux2;
 			Console.WriteLine();
 		}
 
@@ -48,8 +55,11 @@ namespace Xadrez_Console_App
 			{
 				Console.Write(8 - i + _espacoEntrePecas);
 				for (int j = 0; j < tabuleiro.Colunas; j++)
-				{ 
+				{
+					ConsoleColor aux = Console.ForegroundColor;
+					Console.ForegroundColor = ConsoleColor.DarkGray;
 					ImprimirPeca(tabuleiro.TrazPeca(i, j));
+					Console.ForegroundColor = aux;
 				}
 				Console.WriteLine("\n");
 			}
@@ -72,6 +82,8 @@ namespace Xadrez_Console_App
 				Console.Write(8 - i + _espacoEntrePecas);
 				for (int j = 0; j < tabuleiro.Colunas; j++)
 				{
+					ConsoleColor aux = Console.ForegroundColor;
+					Console.ForegroundColor = ConsoleColor.DarkGray;
 					if (posicoesPossiveis[i, j])
 					{
 						Console.BackgroundColor = fundoAlterado;
@@ -81,6 +93,7 @@ namespace Xadrez_Console_App
 						Console.BackgroundColor = fundoOriginal;
 					}
 					ImprimirPeca(tabuleiro.TrazPeca(i, j));
+					Console.ForegroundColor = aux;
 					Console.BackgroundColor = fundoOriginal;
 				}
 				Console.WriteLine("\n");
@@ -115,12 +128,15 @@ namespace Xadrez_Console_App
 
 				if (peca.Cor == Cor.Branca)
 				{
+					ConsoleColor aux = Console.ForegroundColor;
+					Console.ForegroundColor = ConsoleColor.Yellow;
 					Console.Write(peca);
+					Console.ForegroundColor = aux;
 				}
 				else
 				{
 					ConsoleColor aux = Console.ForegroundColor;
-					Console.ForegroundColor = ConsoleColor.Yellow;
+					Console.ForegroundColor = ConsoleColor.DarkYellow;
 					Console.Write(peca);
 					Console.ForegroundColor = aux;
 				}
