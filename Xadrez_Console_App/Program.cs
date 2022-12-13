@@ -40,6 +40,11 @@ namespace Xadrez_Console_App
 						Console.WriteLine(e.Message);
 						Console.ReadLine();
 					}
+					catch (IndexOutOfRangeException e)
+					{
+						Console.WriteLine(e.Message);
+						Console.ReadLine();
+					}
 				}
 				Console.Clear();
 				Tela.ImprimirPartida(partida);
@@ -48,6 +53,7 @@ namespace Xadrez_Console_App
 			{
 				Console.WriteLine(e.Message);
 			}
+			
 
 			Console.ReadLine();
 		}
