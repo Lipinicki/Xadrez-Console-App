@@ -16,10 +16,18 @@ namespace Xadrez_Console_App
 			Console.WriteLine();
 			ImprimirPecasCapturadas(partida);
 			Console.WriteLine("Turno: " + partida.Turno);
-			Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
-			if (partida.Xeque)
+			if (!partida.Terminada)
 			{
-				Console.WriteLine("XEQUE!");
+				Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
+				if (partida.Xeque)
+				{
+					Console.WriteLine("XEQUE!");
+				}
+			}
+			else
+			{
+				Console.WriteLine("XEQUEMATE!");
+				Console.WriteLine("Vencedor: " + partida.JogadorAtual);
 			}
 		}
 		
