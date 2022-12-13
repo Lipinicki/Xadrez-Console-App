@@ -151,5 +151,34 @@ namespace Xadrez_Console_App
 				Console.Write(_espacoEntrePecas);
 			}
 		}
+
+		public static Peca EscolhePeca(Tabuleiro tab, Cor cor)
+		{
+			Console.Write("Escolha uma peça: ");
+			string peca = Console.ReadLine();
+
+			if(peca != "T" && peca != "C" && peca != "B" && peca != "D")
+			{
+				throw new TabuleiroException("Peça inválida, selecione uma das peças válidas.");
+			}
+			
+			if(peca == "T")
+			{
+				return new Torre(tab, cor);
+			}
+			if(peca == "C")
+			{
+				return new Cavalo(tab, cor);
+			}
+			if(peca == "B")
+			{
+				return new Bispo(tab, cor);
+			}
+			if(peca == "D")
+			{
+				return new Dama(tab, cor);
+			}
+			return null;
+		}
 	}
 }

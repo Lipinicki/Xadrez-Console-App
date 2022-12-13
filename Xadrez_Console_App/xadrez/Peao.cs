@@ -44,7 +44,8 @@ namespace xadrez
 				}
 
 				p.MudarPosição(Posicao.Linha - 2, Posicao.Coluna);
-				if (Tabuleiro.PosicaoValida(p) && Livre(p) && QtdDeMovimentos == 0)
+				Posicao p2 = new Posicao(Posicao.Linha - 1, Posicao.Coluna);
+				if (Tabuleiro.PosicaoValida(p2) && Livre(p2) && Tabuleiro.PosicaoValida(p) && Livre(p) && QtdDeMovimentos == 0)
 				{
 					mov[p.Linha, p.Coluna] = true;
 				}

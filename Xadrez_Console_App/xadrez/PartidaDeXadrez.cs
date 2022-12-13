@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using tabuleiro;
+using Xadrez_Console_App;
 
 namespace xadrez
 {
@@ -146,6 +147,21 @@ namespace xadrez
 				throw new TabuleiroException("Você não pode se colocar em xeque!");
 			}
 
+			Peca p = Tab.TrazPeca(destino);
+
+			// #Jogada Especial: Promoção
+			if (p is Peao)
+			{
+				if ((p.Cor == Cor.Branca && destino.Linha == 0) || (p.Cor == Cor.Preta && destino.Linha == 7))
+				{
+					p = Tab.RetiraPeca(destino);
+					_pecas.Remove(p);
+					Peca promocao = new Dama(Tab, p.Cor);
+					Tab.ColocaPeca(promocao, destino);
+					_pecas.Add(promocao);
+				}
+			}
+
 			if (EstaEmXeque(Adversario(JogadorAtual)))
 			{
 				Xeque = true;
@@ -164,8 +180,6 @@ namespace xadrez
 				Turno++;
 				MudaJogador();
 			}
-
-			Peca p = Tab.TrazPeca(destino);
 
 			// #Jogada Especial: En Passant
 			if (p is Peao && (destino.Linha == origem.Linha - 2 || destino.Linha == origem.Linha + 2))
