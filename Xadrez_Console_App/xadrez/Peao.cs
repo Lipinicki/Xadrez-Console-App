@@ -5,9 +5,11 @@ namespace xadrez
 {
 	internal class Peao : Peca
 	{
-		public Peao(Tabuleiro tab, Cor cor) : base(tab, cor)
-		{
+		private PartidaDeXadrez _partida;
 
+		public Peao(Tabuleiro tab, Cor cor, PartidaDeXadrez partida) : base(tab, cor)
+		{
+			_partida = partida;
 		}
 
 		public override string ToString()
@@ -59,6 +61,26 @@ namespace xadrez
 					mov[p.Linha, p.Coluna] = true;
 				}
 
+				// #Jogada Especial: En Passant
+				if (Posicao.Linha == 3)
+				{
+					Posicao esquerda = new Posicao(Posicao.Linha, Posicao.Coluna - 1);
+					if(Tabuleiro.PosicaoValida(esquerda) 
+						&& ExisteInimigo(esquerda) 
+						&& Tabuleiro.TrazPeca(esquerda) == _partida.VulneravelEnPassant)
+					{
+						mov[esquerda.Linha - 1, esquerda.Coluna] = true;
+					}
+
+					Posicao direita = new Posicao(Posicao.Linha, Posicao.Coluna + 1);
+					if (Tabuleiro.PosicaoValida(direita)
+						&& ExisteInimigo(direita)
+						&& Tabuleiro.TrazPeca(direita) == _partida.VulneravelEnPassant)
+					{
+						mov[direita.Linha - 1, direita.Coluna] = true;
+					}
+				}
+
 			}
 			else
 			{
@@ -84,6 +106,26 @@ namespace xadrez
 				if (Tabuleiro.PosicaoValida(p) && ExisteInimigo(p))
 				{
 					mov[p.Linha, p.Coluna] = true;
+				}
+
+				// #Jogada Especial: En Passant
+				if (Posicao.Linha == 4)
+				{
+					Posicao esquerda = new Posicao(Posicao.Linha, Posicao.Coluna - 1);
+					if (Tabuleiro.PosicaoValida(esquerda)
+						&& ExisteInimigo(esquerda)
+						&& Tabuleiro.TrazPeca(esquerda) == _partida.VulneravelEnPassant)
+					{
+						mov[esquerda.Linha + 1, esquerda.Coluna] = true;
+					}
+
+					Posicao direita = new Posicao(Posicao.Linha, Posicao.Coluna + 1);
+					if (Tabuleiro.PosicaoValida(direita)
+						&& ExisteInimigo(direita)
+						&& Tabuleiro.TrazPeca(direita) == _partida.VulneravelEnPassant)
+					{
+						mov[direita.Linha + 1, direita.Coluna] = true;
+					}
 				}
 			}
 
