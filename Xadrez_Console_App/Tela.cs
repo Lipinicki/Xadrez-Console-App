@@ -7,7 +7,40 @@ namespace Xadrez_Console_App
 	internal class Tela
 	{
 		private static char[] _colunas = new char[8] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
-		private static string _espacoEntrePecas = "    ";
+		private static string _espacoEntrePecas = "   ";
+		private static string _espacoEntreOTabuleiro = "\n";
+
+		public static void ImprimirPartida(PartidaDeXadrez partida)
+		{
+			ImprimirTabuleiro(partida.Tab);
+			Console.WriteLine();
+			ImprimirPecasCapturadas(partida);
+			Console.WriteLine("Turno: " + partida.Turno);
+			Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
+		}
+		
+		public static void ImprimirPecasCapturadas(PartidaDeXadrez partida)
+		{
+			Console.WriteLine("Peças capturadas: ");
+			Console.Write("Brancas: ");
+			ImprimirConjunto(partida.PecasCapturadas(Cor.Branca));
+			Console.Write("Pretas: ");
+			ConsoleColor aux = Console.ForegroundColor;
+			Console.ForegroundColor = ConsoleColor.Yellow;
+			ImprimirConjunto(partida.PecasCapturadas(Cor.Preta));
+			Console.ForegroundColor = aux;
+			Console.WriteLine();
+		}
+
+		public static void ImprimirConjunto(HashSet<Peca> conjunto)
+		{
+			Console.Write("[");
+			foreach (var peca in conjunto)
+			{
+				Console.Write(peca + " ");
+			}
+			Console.WriteLine("]");
+		}
 
 		public static void ImprimirTabuleiro(Tabuleiro tabuleiro)
 		{
@@ -16,7 +49,7 @@ namespace Xadrez_Console_App
 				Console.Write(8 - i + _espacoEntrePecas);
 				for (int j = 0; j < tabuleiro.Colunas; j++)
 				{ 
-					ImprimirPeça(tabuleiro.TrazPeca(i, j));
+					ImprimirPeca(tabuleiro.TrazPeca(i, j));
 				}
 				Console.WriteLine("\n");
 			}
@@ -26,7 +59,7 @@ namespace Xadrez_Console_App
 			{
 				Console.Write(_colunas[i] + _espacoEntrePecas);
 			}
-			Console.WriteLine("\n\n\n");
+			Console.WriteLine(_espacoEntreOTabuleiro);
 		}
 
 		public static void ImprimirTabuleiro(Tabuleiro tabuleiro, bool[,] posicoesPossiveis)
@@ -47,7 +80,7 @@ namespace Xadrez_Console_App
 					{
 						Console.BackgroundColor = fundoOriginal;
 					}
-					ImprimirPeça(tabuleiro.TrazPeca(i, j));
+					ImprimirPeca(tabuleiro.TrazPeca(i, j));
 					Console.BackgroundColor = fundoOriginal;
 				}
 				Console.WriteLine("\n");
@@ -58,7 +91,7 @@ namespace Xadrez_Console_App
 			{
 				Console.Write(_colunas[i] + _espacoEntrePecas);
 			}
-			Console.WriteLine("\n\n\n");
+			Console.WriteLine(_espacoEntreOTabuleiro);
 			Console.BackgroundColor = fundoOriginal;
 		}
 
@@ -70,7 +103,7 @@ namespace Xadrez_Console_App
 			return new PosicaoXadrez(coluna, linha);
 		}
 
-		public static void ImprimirPeça(Peca peca)
+		public static void ImprimirPeca(Peca peca)
 		{
 
 			if (peca == null)
